@@ -2,7 +2,7 @@
 
 module Scrapbox
   module Diary
-    module Feed
+    class Feed
       VERSION = "0.1.0"
     end
   end

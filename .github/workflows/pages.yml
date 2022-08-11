@@ -24,11 +24,15 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     runs-on: ubuntu-latest
-          - '3.1.2'
 
     steps:
+      # build
       - uses: actions/checkout@v3
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -42,16 +46,7 @@ jobs:
       - name: Generate a custom feed
         run: bundle exec exe/generate_feed.rb kentaro > build/feed.rss
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      # deploy
       - name: Setup Pages
         uses: actions/configure-pages@v1
       - name: Upload artifact

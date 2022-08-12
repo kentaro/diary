@@ -3,10 +3,8 @@
 require 'scrapbox/diary/feed'
 
 rss= RSS::Maker.make("2.0") do |maker|
-  rss = Scrapbox::Diary::Feed.new(ARGV.first)
-  rss.parse_feed()
+  rss = Scrapbox::Diary::Feed.new(ARGV.first).parse_feed()
   rss.set_channel(maker)
-
   rss.extract_diary_items().each do |orig_item|
     maker.items.new_item do |item|
       item.link = orig_item.link

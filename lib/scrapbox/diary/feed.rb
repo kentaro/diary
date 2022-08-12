@@ -22,6 +22,7 @@ module Scrapbox
 
       def parse_feed()
         @rss = RSS::Parser.parse(get_feed())
+        self
       end
 
       def extract_diary_items()

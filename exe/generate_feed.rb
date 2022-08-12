@@ -9,7 +9,7 @@ rss= RSS::Maker.make("2.0") do |maker|
     maker.items.new_item do |item|
       item.link = orig_item.link
       item.title = rss.strip_site_name(orig_item.title)
-      item.description = orig_item.description
+      item.content_encoded = orig_item.description
       item.updated = orig_item.pubDate
     end
   end

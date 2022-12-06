@@ -4,6 +4,7 @@ require_relative "feed/version"
 
 require "rss"
 require "http"
+require "time"
 
 module Scrapbox
   module Diary
@@ -28,6 +29,10 @@ module Scrapbox
       def extract_diary_items()
         @rss.items.select do |item|
           item.description&.match(/#日記/)
+        end
+        .map do |item|
+          item.pubDate = Time.strptime(item.title, "%Y年%m月%d日").gmtime
+          item
         end
       end
 
